@@ -79,21 +79,11 @@ public class ResultTable
             {
                 place++;
             }
-            var row = new TableRow();
-            row.Name = p.Name;
-            row.Wins = p.Wins;
-            row.Draws = p.Draws;
-            row.Losses = p.Losses;
-            row.ScoredFor = p.ScoredFor;
-            row.ScoredAgainst = p.ScoredAgainst;
-            row.Points = p.Points;
-            row.Place = place;
-            row.Label = place.ToString();
-            rows.Add(row);
+            rows.Add(RankingRowMapper.Create(p, place, place.ToString()));
         }
-        AppendOut(rows, dnf, "DNF");
+        RankingRowMapper.AppendUnranked(rows, dnf, "DNF");
         if (showDisqualified)
-            AppendOut(rows, dq, "DQ");
+            RankingRowMapper.AppendUnranked(rows, dq, "DQ");
         EventLog.Write("table", "round " + round + ": " + rows.Count + " rows");
         return rows;
     }
@@ -111,24 +101,6 @@ public class ResultTable
     public List<TableRow> Rank(List<Participant> teams)
     {
         return Rank(teams, StandardWinPoints, 0, true);
-    }
-
-    private void AppendOut(List<TableRow> rows, List<Participant> list, string label)
-    {
-        foreach (var p in list)
-        {
-            var row = new TableRow();
-            row.Name = p.Name;
-            row.Wins = p.Wins;
-            row.Draws = p.Draws;
-            row.Losses = p.Losses;
-            row.ScoredFor = p.ScoredFor;
-            row.ScoredAgainst = p.ScoredAgainst;
-            row.Points = p.Points;
-            row.Place = 0;
-            row.Label = label;
-            rows.Add(row);
-        }
     }
 
     // для сайту: поки матч туру ще йде, таблицю не даємо
