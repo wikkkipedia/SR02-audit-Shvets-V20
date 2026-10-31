@@ -84,20 +84,25 @@ public class ResultTable
             }
             if (p.Status == "DNF")
             {
-                if (DateTime.Today < WithdrawalRuleDate)
-                {
-                    // до сезону 2024/25 очки анулювались
-                    if (p.Points != 0)
-                        Notes.Add(p.Name + ": " + p.Points + " pts annulled");
-                    p.Points = 0;
-                }
-                Notes.Add(p.Name + " withdrew");
-                buckets.Withdrawn.Add(p);
+                AddWithdrawnParticipant(buckets, p);
                 continue;
             }
             buckets.Active.Add(p);
         }
         return buckets;
+    }
+
+    private void AddWithdrawnParticipant(TeamBuckets buckets, Participant participant)
+    {
+        if (DateTime.Today < WithdrawalRuleDate)
+        {
+            // до сезону 2024/25 очки анулювались
+            if (participant.Points != 0)
+                Notes.Add(participant.Name + ": " + participant.Points + " pts annulled");
+            participant.Points = 0;
+        }
+        Notes.Add(participant.Name + " withdrew");
+        buckets.Withdrawn.Add(participant);
     }
 
     private static bool IsHigherRanking(Participant candidate, Participant current)
