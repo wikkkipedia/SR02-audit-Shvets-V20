@@ -38,11 +38,16 @@ public class TournamentRepository
         {
             if (p.Division != division)
                 continue;
-            if (!withOut && (p.Status == "DNF" || p.Status == "DQ"))
+            if (!withOut && IsWithdrawnOrDisqualified(p))
                 continue;
             res.Add(p);
         }
         return res;
+    }
+
+    private static bool IsWithdrawnOrDisqualified(Participant participant)
+    {
+        return participant.Status == "DNF" || participant.Status == "DQ";
     }
 
     // Перенесення зі старої таблиці (Excel) посеред сезону.
