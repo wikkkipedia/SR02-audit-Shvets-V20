@@ -37,11 +37,10 @@ public class ResultTable
             {
                 Participant a = active[j];
                 Participant b = active[j + 1];
-                if (IsHigherRanking(b, a))
-                {
-                    active[j] = b;
-                    active[j + 1] = a;
-                }
+                if (!IsHigherRanking(b, a))
+                    continue;
+                active[j] = b;
+                active[j + 1] = a;
             }
         }
         int place = 0;
