@@ -10,12 +10,7 @@ public class ReportPrinter
         foreach (TableRow r in rows)
         {
             Console.Write(r.Label.PadRight(4));
-            string line = r.Name.PadRight(20);
-            line += r.Wins.ToString().PadLeft(4);
-            line += r.Draws.ToString().PadLeft(4);
-            line += r.Losses.ToString().PadLeft(4);
-            line += (r.ScoredFor + ":" + r.ScoredAgainst).PadLeft(8);
-            line += r.Points.ToString().PadLeft(5);
+            string line = TableStatsFormatter.Format(r);
             Console.WriteLine(line);
         }
     }
@@ -33,12 +28,7 @@ public class ReportPrinter
             else if (r.Place == 2)
                 medal = "Silver";
             Console.Write(medal.PadRight(8));
-            string line = r.Name.PadRight(20);
-            line += r.Wins.ToString().PadLeft(4);
-            line += r.Draws.ToString().PadLeft(4);
-            line += r.Losses.ToString().PadLeft(4);
-            line += (r.ScoredFor + ":" + r.ScoredAgainst).PadLeft(8);
-            line += r.Points.ToString().PadLeft(5);
+            string line = TableStatsFormatter.Format(r);
             Console.WriteLine(line);
         }
     }

@@ -91,12 +91,7 @@ public class TournamentRepository
             if (r.Division != division)
                 continue;
             Console.Write(("#" + r.Id).PadRight(4));
-            string line = r.Name.PadRight(20);
-            line += r.Wins.ToString().PadLeft(4);
-            line += r.Draws.ToString().PadLeft(4);
-            line += r.Losses.ToString().PadLeft(4);
-            line += (r.ScoredFor + ":" + r.ScoredAgainst).PadLeft(8);
-            line += r.Points.ToString().PadLeft(5);
+            string line = TableStatsFormatter.Format(RankingRowMapper.Create(r, 0, ""));
             Console.WriteLine(line);
         }
     }
