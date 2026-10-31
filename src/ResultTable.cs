@@ -95,16 +95,11 @@ public class ResultTable
         return rows;
     }
 
-    private static int GoalDifference(Participant participant)
-    {
-        return participant.ScoredFor - participant.ScoredAgainst;
-    }
-
     private static bool IsHigherRanking(Participant candidate, Participant current)
     {
         bool morePoints = candidate.Points > current.Points;
-        bool betterDifference = candidate.Points == current.Points && GoalDifference(candidate) > GoalDifference(current);
-        bool moreWins = candidate.Points == current.Points && GoalDifference(candidate) == GoalDifference(current)
+        bool betterDifference = candidate.Points == current.Points && candidate.GoalDifference() > current.GoalDifference();
+        bool moreWins = candidate.Points == current.Points && candidate.GoalDifference() == current.GoalDifference()
             && candidate.Wins > current.Wins;
         return morePoints || betterDifference || moreWins;
     }

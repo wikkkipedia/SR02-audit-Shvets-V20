@@ -20,6 +20,11 @@ public class Participant
     public string Phone;             // як ввели в заявці
     public List<string> Remarks = new List<string>();
 
+    public int GoalDifference()
+    {
+        return ScoredFor - ScoredAgainst;
+    }
+
     public Participant(int id, string name, string city, string division)
     {
         Id = id;
