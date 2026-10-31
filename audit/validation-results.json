@@ -1,0 +1,15 @@
+﻿{
+    "verification_timestamp":  "2026-10-31T15:02:00.0453829+02:00",
+    "platform":  "Windows 11; .NET SDK 9.0.318, target net8.0",
+    "baseline_build":  "passed; zero warnings/errors",
+    "after_build":  "passed; zero warnings/errors",
+    "characterization_tests_baseline":  "17 passed; 0 failed",
+    "characterization_tests_refactored":  "17 passed; 0 failed",
+    "refactor_commit_checks":  "16 out of 16 passed build+test",
+    "stdout_identical":  true,
+    "stdout_bytes":  2655,
+    "donor_ResultTable_line_coverage_before_percent":  93.9,
+    "donor_ResultTable_line_coverage_after_percent":  92.53,
+    "donor_ResultTable_branch_coverage_before_percent":  92,
+    "donor_ResultTable_branch_coverage_after_percent":  89.47
+}

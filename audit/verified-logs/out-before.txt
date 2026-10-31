@@ -1,0 +1,70 @@
+﻿=== Import ===
+Imported 9 line(s), teams in list: 10
+=== Fixtures ===
+Scheduled M001: #1 vs #3
+Scheduled M002: #2 vs #8
+Scheduled M003: #4 vs #5
+Rejected #6 vs #7: Disqualified team cannot play
+Scheduled M004: #5 vs #6
+Scheduled M005: #3 vs #2
+Rejected #1 vs #1: Bad pair
+Rejected #1 vs #9: Bad pair
+Rejected #1 vs #42: Team not found
+=== Match day ===
+  M001 -> InProgress
+  M001 score 1:1
+  M001 -> Finished
+  M002 score 2:0
+  Cannot change M002: Scheduled -> Finished
+  M002 -> InProgress
+  M002 -> Finished
+  M003 -> InProgress
+  M003 score rejected: Bad score -1:2
+  M003 score 2:2
+  M003 -> Finished
+  M004 -> Cancelled
+  M004 score rejected: Match M004 is Cancelled
+  Cannot change M004: Cancelled -> InProgress
+  M005 score rejected: Match M005 has not started yet
+  M999 score rejected: Match M999 not found
+  Match M999 not found
+  Cannot change M001: Finished -> Cancelled
+=== Tables ===
+  (Vinnytsia Rapid is disqualified, no place)
+--- Division A after round 10 ---
+Pos Team                   W   D   L   Goals  Pts
+1   Kyiv Falcons           6   3   1   31:13   21
+2   Odesa Mariners         5   4   1   26:14   19
+2   Lviv Lions             5   4   1   28:16   19
+3   Dnipro Steel           5   3   2   24:20   18
+4   Kharkiv Tigers         4   6   0   20:16   18
+5   Sumy Wolves            3   2   1     0:2    8
+DNF Poltava Bears          1   2   5    9:21    5
+DQ  Vinnytsia Rapid        2   1   6   11:26    7
+Notes: Poltava Bears withdrew
+Gold    Kyiv Falcons           6   3   1   31:13   21
+Silver  Odesa Mariners         5   4   1   26:14   19
+Silver  Lviv Lions             5   4   1   28:16   19
+Bronze  Dnipro Steel           5   3   2   24:20   18
+  (Vinnytsia Rapid is disqualified, no place)
+--- Division A, archive scoring ---
+Pos Team                   W   D   L   Goals  Pts
+1   Kyiv Falcons           6   3   1   31:13   15
+2   Odesa Mariners         5   4   1   26:14   14
+2   Lviv Lions             5   4   1   28:16   14
+3   Kharkiv Tigers         4   6   0   20:16   14
+4   Dnipro Steel           5   3   2   24:20   13
+5   Sumy Wolves            3   2   1     0:2    5
+DNF Poltava Bears          1   2   5    9:21    4
+--- Division B after round 10 ---
+Pos Team                   W   D   L   Goals  Pts
+1   Chernihiv Eagles       4   1   1    18:9   13
+2   Zhytomyr Union         3   2   1   14:10   11
+Division B in registration order:
+#9  Chernihiv Eagles       4   1   1    18:9   13
+#10 Zhytomyr Union         3   2   1   14:10   11
+No teams in division C
+Division C: no table
+Empty list: 0
+Rank(null): NullReferenceException
+Rank calls: 5
