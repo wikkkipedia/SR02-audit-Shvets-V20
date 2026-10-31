@@ -26,33 +26,10 @@ public class ResultTable
         RankCalls++;
         Notes.Clear();
         var rows = new List<TableRow>();
-        var active = new List<Participant>();
-        var dnf = new List<Participant>();
-        var dq = new List<Participant>();
-        foreach (var p in teams)
-        {
-            p.Points = p.Wins * winPoints + p.Draws - p.PenaltyPoints;
-            if (p.Status == "DQ")
-            {
-                Console.WriteLine("  (" + p.Name + " is disqualified, no place)");
-                dq.Add(p);
-                continue;
-            }
-            if (p.Status == "DNF")
-            {
-                if (DateTime.Today < WithdrawalRuleDate)
-                {
-                    // до сезону 2024/25 очки анулювались
-                    if (p.Points != 0)
-                        Notes.Add(p.Name + ": " + p.Points + " pts annulled");
-                    p.Points = 0;
-                }
-                Notes.Add(p.Name + " withdrew");
-                dnf.Add(p);
-                continue;
-            }
-            active.Add(p);
-        }
+        var buckets = CollectByStatus(teams, winPoints);
+        var active = buckets.Active;
+        var dnf = buckets.Withdrawn;
+        var dq = buckets.Disqualified;
         // бульбашка: List.Sort міняв місцями рівні команди
         for (int i = 0; i < active.Count - 1; i++)
         {
@@ -84,6 +61,44 @@ public class ResultTable
             RankingRowMapper.AppendUnranked(rows, dq, "DQ");
         EventLog.Write("table", "round " + round + ": " + rows.Count + " rows");
         return rows;
+    }
+
+    // Групи тільки для побудови звіту; порядок у кожній групі збережено.
+    private sealed class TeamBuckets
+    {
+        public List<Participant> Active { get; } = new List<Participant>();
+        public List<Participant> Withdrawn { get; } = new List<Participant>();
+        public List<Participant> Disqualified { get; } = new List<Participant>();
+    }
+
+    private TeamBuckets CollectByStatus(List<Participant> teams, int winPoints)
+    {
+        var buckets = new TeamBuckets();
+        foreach (var p in teams)
+        {
+            p.Points = p.Wins * winPoints + p.Draws - p.PenaltyPoints;
+            if (p.Status == "DQ")
+            {
+                Console.WriteLine("  (" + p.Name + " is disqualified, no place)");
+                buckets.Disqualified.Add(p);
+                continue;
+            }
+            if (p.Status == "DNF")
+            {
+                if (DateTime.Today < WithdrawalRuleDate)
+                {
+                    // до сезону 2024/25 очки анулювались
+                    if (p.Points != 0)
+                        Notes.Add(p.Name + ": " + p.Points + " pts annulled");
+                    p.Points = 0;
+                }
+                Notes.Add(p.Name + " withdrew");
+                buckets.Withdrawn.Add(p);
+                continue;
+            }
+            buckets.Active.Add(p);
+        }
+        return buckets;
     }
 
     private static bool IsHigherRanking(Participant candidate, Participant current)
