@@ -36,8 +36,9 @@ public class ResultTable
             {
                 Console.WriteLine("  (" + p.Name + " is disqualified, no place)");
                 dq.Add(p);
+                continue;
             }
-            else if (p.Status == "DNF")
+            if (p.Status == "DNF")
             {
                 if (DateTime.Today < WithdrawalRuleDate)
                 {
@@ -48,9 +49,9 @@ public class ResultTable
                 }
                 Notes.Add(p.Name + " withdrew");
                 dnf.Add(p);
+                continue;
             }
-            else
-                active.Add(p);
+            active.Add(p);
         }
         // бульбашка: List.Sort міняв місцями рівні команди
         for (int i = 0; i < active.Count - 1; i++)
