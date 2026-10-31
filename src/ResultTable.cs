@@ -6,8 +6,8 @@ public class ResultTable
 {
     private const int StandardWinPoints = 3;
     private static readonly DateTime WithdrawalRuleDate = new DateTime(2024, 8, 1);
-    public static int RankCalls = 0;
-    public List<string> Notes = new List<string>();   // для протоколу комітету
+    public static int RankCalls { get; private set; } = 0;
+    public List<string> Notes { get; } = new List<string>();   // для протоколу комітету
     private TournamentRepository _repository;
 
     public ResultTable() : this(new TournamentRepository()) { }
