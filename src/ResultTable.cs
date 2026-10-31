@@ -4,6 +4,8 @@ namespace SportEvents;
 // Повна рівність - спільне місце, за алфавітом (п. 7.3).
 public class ResultTable
 {
+    private const int StandardWinPoints = 3;
+    private static readonly DateTime WithdrawalRuleDate = new DateTime(2024, 8, 1);
     public static int RankCalls = 0;
     public List<string> Notes = new List<string>();   // для протоколу комітету
     private TournamentRepository _repository;
@@ -37,7 +39,7 @@ public class ResultTable
             }
             else if (p.Status == "DNF")
             {
-                if (DateTime.Today < new DateTime(2024, 8, 1))
+                if (DateTime.Today < WithdrawalRuleDate)
                 {
                     // до сезону 2024/25 очки анулювались
                     if (p.Points != 0)
@@ -107,7 +109,7 @@ public class ResultTable
     // старий виклик з першої версії сайту
     public List<TableRow> Rank(List<Participant> teams)
     {
-        return Rank(teams, 3, 0, true);
+        return Rank(teams, StandardWinPoints, 0, true);
     }
 
     private void AppendOut(List<TableRow> rows, List<Participant> list, string label)
@@ -140,7 +142,7 @@ public class ResultTable
             Console.WriteLine("No teams in division " + division);
             return null;
         }
-        return Rank(list, 3, round, true);
+        return Rank(list, StandardWinPoints, round, true);
     }
 }
 
