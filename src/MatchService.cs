@@ -16,12 +16,17 @@ public class MatchService
     // days - зсув від сьогодні (може бути < 0), hour - година
     public string Schedule(int round, int homeId, int awayId, string hall, int days, int hour)
     {
+        return Schedule(new ScheduleRequest(round, homeId, awayId, hall, days, hour));
+    }
+
+    public string Schedule(ScheduleRequest request)
+    {
         LastError = "";
-        Participant h = repo.FindTeam(homeId);
-        Participant a = repo.FindTeam(awayId);
+        Participant h = repo.FindTeam(request.HomeId);
+        Participant a = repo.FindTeam(request.AwayId);
         if (h == null || a == null)
             LastError = "Team not found";
-        else if (homeId == awayId || h.Division != a.Division)
+        else if (request.HomeId == request.AwayId || h.Division != a.Division)
             LastError = "Bad pair";
         else if (h.Status == "DQ" || a.Status == "DQ")
             LastError = "Disqualified team cannot play";
@@ -29,11 +34,11 @@ public class MatchService
             return null;
         Match m = new Match();
         m.Code = repo.NewMatchCode();
-        m.Round = round;
-        m.HomeId = homeId;
-        m.AwayId = awayId;
-        m.Hall = hall;
-        m.KickOff = DateTime.Today.AddDays(days).AddHours(hour);
+        m.Round = request.Round;
+        m.HomeId = request.HomeId;
+        m.AwayId = request.AwayId;
+        m.Hall = request.Hall;
+        m.KickOff = DateTime.Today.AddDays(request.Days).AddHours(request.Hour);
         m.StatusChangedAt = DateTime.Now;
         repo.Matches.Add(m);
         EventLog.Write("schedule", m.Code + " " + h.Name + " - " + a.Name);
