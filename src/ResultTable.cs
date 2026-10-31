@@ -57,10 +57,12 @@ public class ResultTable
             {
                 Participant a = active[j];
                 Participant b = active[j + 1];
-                if (b.Points > a.Points || (b.Points == a.Points
-                    && (b.ScoredFor - b.ScoredAgainst > a.ScoredFor - a.ScoredAgainst
-                    || (b.ScoredFor - b.ScoredAgainst == a.ScoredFor - a.ScoredAgainst
-                    && b.Wins > a.Wins))))
+                int candidateDifference = b.ScoredFor - b.ScoredAgainst;
+                int currentDifference = a.ScoredFor - a.ScoredAgainst;
+                bool morePoints = b.Points > a.Points;
+                bool betterDifference = b.Points == a.Points && candidateDifference > currentDifference;
+                bool moreWins = b.Points == a.Points && candidateDifference == currentDifference && b.Wins > a.Wins;
+                if (morePoints || betterDifference || moreWins)
                 {
                     active[j] = b;
                     active[j + 1] = a;
