@@ -1,0 +1,13 @@
+{
+  "phase": "after",
+  "files": 11,
+  "physical_lines": 643,
+  "nonblank_noncomment_lines": 562,
+  "methods_measured": 32,
+  "max_cc": 11,
+  "avg_cc": 3.75,
+  "longest_method_LOC": 30,
+  "max_depth": 3,
+  "clone_windows_6": 0,
+  "max_fan_out": 8
+}
