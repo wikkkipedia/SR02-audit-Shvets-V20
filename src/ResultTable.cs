@@ -67,8 +67,6 @@ public class ResultTable
                 }
             }
         }
-        //active.Sort((x, y) => x.Points != y.Points ? y.Points - x.Points
-        //    : (y.ScoredFor - y.ScoredAgainst) - (x.ScoredFor - x.ScoredAgainst));
         int place = 0;
         for (int i = 0; i < active.Count; i++)
         {
