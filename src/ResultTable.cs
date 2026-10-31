@@ -57,12 +57,7 @@ public class ResultTable
             {
                 Participant a = active[j];
                 Participant b = active[j + 1];
-                int candidateDifference = b.ScoredFor - b.ScoredAgainst;
-                int currentDifference = a.ScoredFor - a.ScoredAgainst;
-                bool morePoints = b.Points > a.Points;
-                bool betterDifference = b.Points == a.Points && candidateDifference > currentDifference;
-                bool moreWins = b.Points == a.Points && candidateDifference == currentDifference && b.Wins > a.Wins;
-                if (morePoints || betterDifference || moreWins)
+                if (IsHigherRanking(b, a))
                 {
                     active[j] = b;
                     active[j + 1] = a;
@@ -77,10 +72,7 @@ public class ResultTable
             Participant p = active[i];
             Participant up = active[Math.Max(0, i - 1)];
             // нове місце, якщо команда вище строго краща
-            if (i == 0 || up.Points > p.Points || (up.Points == p.Points
-                && (up.ScoredFor - up.ScoredAgainst > p.ScoredFor - p.ScoredAgainst
-                || (up.ScoredFor - up.ScoredAgainst == p.ScoredFor - p.ScoredAgainst
-                && up.Wins > p.Wins))))
+            if (i == 0 || IsHigherRanking(up, p))
             {
                 place++;
             }
@@ -101,6 +93,17 @@ public class ResultTable
             AppendOut(rows, dq, "DQ");
         EventLog.Write("table", "round " + round + ": " + rows.Count + " rows");
         return rows;
+    }
+
+    private static bool IsHigherRanking(Participant candidate, Participant current)
+    {
+        int candidateDifference = candidate.ScoredFor - candidate.ScoredAgainst;
+        int currentDifference = current.ScoredFor - current.ScoredAgainst;
+        bool morePoints = candidate.Points > current.Points;
+        bool betterDifference = candidate.Points == current.Points && candidateDifference > currentDifference;
+        bool moreWins = candidate.Points == current.Points && candidateDifference == currentDifference
+            && candidate.Wins > current.Wins;
+        return morePoints || betterDifference || moreWins;
     }
 
     // старий виклик з першої версії сайту
