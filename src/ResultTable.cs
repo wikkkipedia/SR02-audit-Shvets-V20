@@ -6,13 +6,13 @@ public class ResultTable
 {
     public static int RankCalls = 0;
     public List<string> Notes = new List<string>();   // для протоколу комітету
-    private TournamentRepository repo;
+    private TournamentRepository _repository;
 
     public ResultTable() : this(new TournamentRepository()) { }
 
     public ResultTable(TournamentRepository repository)
     {
-        repo = repository;
+        _repository = repository;
     }
 
     // winPoints: 3 з сезону 2019/20, архівні таблиці - по 2.
@@ -128,10 +128,10 @@ public class ResultTable
     // для сайту: поки матч туру ще йде, таблицю не даємо
     public List<TableRow> RankDivision(string division, int round)
     {
-        foreach (Match m in repo.Matches)
+        foreach (Match m in _repository.Matches)
             if (m.Round == round && m.Status == MatchStatus.InProgress)
                 return null;
-        List<Participant> list = repo.ByDivision(division, true);
+        List<Participant> list = _repository.ByDivision(division, true);
         if (list.Count == 0)
         {
             Console.WriteLine("No teams in division " + division);
